@@ -8,7 +8,7 @@ pluginManagement {
 
 enableFeaturePreview("GRADLE_METADATA")
 
-rootProject.name = "muirwik"
+//rootProject.name = "muirwik"
 include("muirwik-components")
-//include("muirwik-testap"')
+include("muirwik-testapp")
 

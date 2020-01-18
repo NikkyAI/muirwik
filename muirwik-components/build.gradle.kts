@@ -1,15 +1,13 @@
 plugins {
     kotlin("multiplatform")
-//    java
     id("maven-publish")
 }
 
-version = "0.4.0-dev"
+version = "0.4.1-dev"
 description = "Muirwik Components - a Material UI React wrapper written in Kotlin"
 
 //plugins {
 //    java // Not sure why this is needed, but it makes the dependencies below work.
-//    id("com.moowork.node") version "1.2.0"
 //    id("com.jfrog.bintray") version "1.8.4"
 //}
 
@@ -56,27 +54,29 @@ kotlin {
 
 
     sourceSets {
+        js().compilations["main"].apply {
 
+        }
         js().compilations["main"].defaultSourceSet {
-
             dependencies {
                 val kotlinWrappersVersion = "pre.89-kotlin-1.3.60"
                 val kotlinReactVersion = "16.9.0-$kotlinWrappersVersion"
 
                 implementation(kotlin("stdlib-js"))
 
-                implementation("org.jetbrains:kotlin-react:$kotlinReactVersion")
-                implementation("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
-                implementation("org.jetbrains:kotlin-styled:1.0.0-$kotlinWrappersVersion")
+                api("org.jetbrains:kotlin-react:$kotlinReactVersion")
+                api("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
+                api("org.jetbrains:kotlin-styled:1.0.0-$kotlinWrappersVersion")
 
                 api(npm("react", "^16.9.0"))
                 api(npm("react-dom", "^16.9.0"))
                 api(npm("inline-style-prefixer", "^5.1.0"))
 //    api(npm("core-js", "^3.4.7"))
-                api(npm("styled-components", "^4.3.2"))
-                api(npm("@material-ui/core", "^4.4.2"))
-                api(npm("@material-ui/icons", "^4.4.1"))
+                api(npm("styled-components", "^4.4.1"))
+                api(npm("@material-ui/core", "^4.8.3"))
+                api(npm("@material-ui/icons", "^4.5.1"))
             }
+            kotlin.srcDir(project.file("src/main/kotlin"))
         }
     }
 }
@@ -102,14 +102,8 @@ publishing {
     }
 
     publications {
-        logger.lifecycle("publications: $publications")
-        publications.forEach  {
-            logger.lifecycle("publication: $it") // this code never runs/ publications is empty
-        }
-
         publications.withType<MavenPublication>().apply {
 //            val js by getting { /* Setup the publication for target 'jvm6' */ }
-//            val metadata by getting { /* Setup the publication for Kotlin metadata */ }
         }
 //        create<MavenPublication>(publicationName) {
 ////            components
@@ -165,4 +159,3 @@ publishing {
 //        setPublications(publicationName)
 //    }
 //}
-
