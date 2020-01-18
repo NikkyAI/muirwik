@@ -1,6 +1,7 @@
 package com.ccfraser.muirwik.components.button
 
 import com.ccfraser.muirwik.components.*
+import kotlinx.html.ButtonType
 import org.w3c.dom.events.Event
 import react.RBuilder
 import react.RComponent
@@ -23,6 +24,7 @@ interface MButtonProps : MButtonBaseProps {
 var MButtonProps.color by EnumPropToStringNullable(MColor.values())
 var MButtonProps.size by EnumPropToString(MButtonSize.values())
 var MButtonProps.variant by EnumPropToStringNullable(MButtonVariant.values())
+var MButtonProps.type by EnumPropToString(ButtonType.values())
 
 
 //Setting the color and variant to the default values seems to upset button groups... the buttons don't inherit the
@@ -36,6 +38,7 @@ fun RBuilder.mButton(
         onClick: ((Event) -> Unit)? = null,
         size: MButtonSize = MButtonSize.medium,
         hRefOptions: HRefOptions? = null,
+        type: ButtonType = ButtonType.button,
 
         addAsChild: Boolean = true,
         className: String? = null,
@@ -46,6 +49,7 @@ fun RBuilder.mButton(
     onClick?.let { attrs.onClick = onClick }
     attrs.size = size
     attrs.variant = variant
+    attrs.type = type
 
     childList.add(caption)
 
